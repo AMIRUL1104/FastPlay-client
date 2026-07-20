@@ -2,10 +2,12 @@
 
 import { Product } from "@/src/types/product.type";
 import { useState } from "react";
-import AddToCartButton from "./AddToCartButton";
+
 import QuantitySelector from "./QuantitySelector";
 import Link from "next/link";
 import { FiShoppingBag } from "react-icons/fi";
+
+import AddToCartButton from "./AddToCartButton";
 
 interface ProductCartActionsProps {
     product: Product;
@@ -28,6 +30,7 @@ export default function ProductCartActions({ product }: ProductCartActionsProps)
                     </div>
                     <div className="flex gap-3">
                         <AddToCartButton product={product} quantity={quantity} />
+
                         <Link
                             id="continue-shopping-link"
                             href="/products"

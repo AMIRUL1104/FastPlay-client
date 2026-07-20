@@ -72,3 +72,68 @@ export const createUserProfile = async () => {
 export const updateUserProfile = async (data: UpdateProfilePayload) => {
   return serverMutation<UpdateProfilePayload>("/api/users", data, "PATCH");
 };
+
+import { AddToCartPayload, UpdateCartItemPayload } from "@/src/types/cart.type";
+
+// -------------------- Cart --------------------
+
+export const addToCart = async (data: AddToCartPayload) => {
+  return serverMutation<AddToCartPayload>("/api/cart", data);
+};
+
+export const updateCartItem = async (
+  productId: string,
+  data: UpdateCartItemPayload,
+) => {
+  return serverMutation<UpdateCartItemPayload>(
+    `/api/cart/${productId}`,
+    data,
+    "PATCH",
+  );
+};
+
+export const removeCartItem = async (productId: string) => {
+  try {
+    const headers: HeadersInit = {
+      "Content-Type": "application/json",
+      ...(await authHeader()),
+    };
+
+    const response = await fetch(`${baseUrl}/api/cart/${productId}`, {
+      method: "DELETE",
+      headers,
+    });
+
+    return await response.json();
+  } catch (error) {
+    console.error("Remove cart item error:", error);
+
+    return {
+      success: false,
+      message: "Something went wrong while removing the cart item.",
+    };
+  }
+};
+
+export const clearCart = async () => {
+  try {
+    const headers: HeadersInit = {
+      "Content-Type": "application/json",
+      ...(await authHeader()),
+    };
+
+    const response = await fetch(`${baseUrl}/api/cart`, {
+      method: "DELETE",
+      headers,
+    });
+
+    return await response.json();
+  } catch (error) {
+    console.error("Clear cart error:", error);
+
+    return {
+      success: false,
+      message: "Something went wrong while clearing the cart.",
+    };
+  }
+};
