@@ -1,104 +1,100 @@
-import { GetPostsParams } from "@/interface/post related/getPostsParams";
-import { protectedFetch, serverFetch } from "../core/serverFetch";
-import { PostResponse } from "@/interface/post related/postResponse";
-import {
-  BooksResponse,
-  FeaturedPostsResponse,
-} from "@/interface/post related/booksResponse";
-import { CheckBookRequestResponse } from "@/interface/bookRequest/checkRequest";
-import { BookRequestResponse } from "@/interface/bookRequest/bookRequest";
-import { UserProfile } from "@/interface/user/userProfile";
-import { UserDashboardResponse } from "@/interface/dashboard/dashboard";
 
-export const getPosts = async <T>({
+
+import { protectedFetch, serverFetch } from "../core/serverFetch";
+import { Order } from "@/src/types/order.type";
+import { Cart } from "@/src/types/cart.type";
+import { UserProfile } from "@/src/types/user.type";
+import { PaginatedResponse, Product } from "@/src/types/product.type";
+
+export interface GetProductsParams {
+  search?: string;
+  category?: string;
+  sort?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  page?: number;
+  limit?: number;
+}
+
+// ---------------- Products ----------------
+
+export const getProducts = async ({
   search = "",
   category = "",
-  condition = "",
-  listingType = "",
   sort = "newest",
+  minPrice,
+  maxPrice,
   page = 1,
-  limit = 6,
-}: GetPostsParams = {}): Promise<BooksResponse<T>> => {
+  limit = 8,
+}: GetProductsParams = {}): Promise<PaginatedResponse<Product>> => {
   const params = new URLSearchParams();
 
   if (search) params.set("search", search);
   if (category) params.set("category", category);
-  if (condition) params.set("condition", condition);
-  if (listingType) params.set("listingType", listingType);
   if (sort) params.set("sort", sort);
+
+  if (minPrice !== undefined)
+    params.set("minPrice", String(minPrice));
+
+  if (maxPrice !== undefined)
+    params.set("maxPrice", String(maxPrice));
 
   params.set("page", String(page));
   params.set("limit", String(limit));
 
-  const result = await serverFetch<BooksResponse<T>>(
-    `/api/posts?${params.toString()}`,
+  const result = await serverFetch<PaginatedResponse<Product>>(
+    `/api/products?${params.toString()}`,
   );
 
-  // serverFetch returns null on failure
-  if (!result) {
-    return {
+  return (
+    result ?? {
       success: false,
-      books: [],
+      data: [],
       total: 0,
       totalPages: 1,
       currentPage: page,
-    };
-  }
-
-  return result;
-};
-
-export const getUserDashboard =
-  async (): Promise<UserDashboardResponse | null> => {
-    return protectedFetch<UserDashboardResponse>("/api/dashboard/user");
-  };
-
-export const getPostById = async (id: string): Promise<PostResponse | null> => {
-  return serverFetch<PostResponse>(`/api/posts/${id}`);
-};
-
-export const getMyPosts = async <T>(): Promise<BooksResponse<T> | null> => {
-  const result = await protectedFetch<BooksResponse<T>>(`/api/posts/my`);
-  return result;
-};
-
-export const checkBookRequest = async (
-  postId: string,
-  sellerId: string,
-  requesterId: string,
-): Promise<CheckBookRequestResponse | null> => {
-  const result = await serverFetch<CheckBookRequestResponse>(
-    `/api/book-requests/check?postId=${postId}&sellerId=${sellerId}&requesterId=${requesterId}`,
+    }
   );
-  return result;
 };
 
-export const getSentRequests = async (
-  userId: string,
-): Promise<BookRequestResponse | null> => {
-  const result = await protectedFetch<BookRequestResponse>(
-    `/api/book-requests/sent?requesterId=${userId}`,
-  );
-  return result;
-};
-export const getReceivedRequests = async (
-  userId: string,
-): Promise<BookRequestResponse | null> => {
-  const result = await protectedFetch<BookRequestResponse>(
-    `/api/book-requests/received?sellerId=${userId}`,
-  );
-  return result;
+export const getFeaturedProducts = async () => {
+  return serverFetch<{ success: boolean; data: Product[] }>("/api/products/featured");
 };
 
-// getFeaturedPosts
-export const getFeaturedPosts = async <
-  T,
->(): Promise<FeaturedPostsResponse<T> | null> => {
-  return await serverFetch<FeaturedPostsResponse<T>>("/api/posts/featured");
+export const getProductById = async (id: string) => {
+  return serverFetch<Product>(`/api/products/${id}`);
 };
-// userProfile actions
+
+// ---------------- Cart ----------------
+
+export const getCart = async () => {
+  return protectedFetch<Cart>("/api/cart");
+};
+
+// ---------------- Orders ----------------
+
+export const getMyOrders = async () => {
+  return protectedFetch<Order[]>("/api/orders/my");
+};
+
+// ---------------- Dashboard ----------------
+
+export const getUserDashboard = async () => {
+  return protectedFetch("/api/dashboard/user");
+};
+
+export const getAdminDashboard = async () => {
+  return protectedFetch("/api/dashboard/admin");
+};
+
+// ---------------- Admin ----------------
+
+export const getAllProductsForAdmin = async () => {
+  return protectedFetch<Product[]>("/api/products/admin");
+};
+
+// ---------------- User ----------------
 
 export const getUserProfile = async (): Promise<UserProfile | null> => {
-  const result = await protectedFetch<UserProfile>("/api/users");
-  return result;
-};
+  return protectedFetch<UserProfile>("/api/users");
+}

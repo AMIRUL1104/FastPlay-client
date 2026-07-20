@@ -1,27 +1,47 @@
 @import "tailwindcss";
 
 @theme {
-  --color-navy: #0F3040;
-  --color-navy-deep: #1A4A5C;
-  --color-slate: #464858;
+  /* ── Core palette ──────────────────────────────────────── */
+  --color-navy:        #0F3040;
+  --color-navy-deep:   #1A4A5C;
+  --color-slate:       #464858;
   --color-slate-muted: #7A7C8A;
-  --color-terracotta: #A56F63;
-  --color-copper: #D99B7F;
-  --color-cream: #F7F2EF;
-  --color-peach: #F5E6DF;
-  --color-mist: #E8F4FB;
-  --color-white: #FFFFFF;
+  --color-terracotta:  #A56F63;
+  --color-copper:      #D99B7F;
+  --color-cream:       #F7F2EF;
+  --color-peach:       #F5E6DF;
+  --color-mist:        #E8F4FB;
+  --color-white:       #FFFFFF;
 
-  --color-bg-page: var(--color-cream);
-  --color-bg-card: var(--color-white);
-  --color-text-head: var(--color-navy);
-  --color-text-body: var(--color-slate);
-  --color-text-muted: var(--color-slate-muted);
-  --color-accent: var(--color-copper);
-  --color-accent-hover: var(--color-terracotta);
+  /* ── Semantic aliases (used by bg-bg-page, text-text-body…) */
+  --color-bg-page:     var(--color-cream);
+  --color-bg-card:     var(--color-white);
+  --color-text-head:   var(--color-navy);
+  --color-text-body:   var(--color-slate);
+  --color-text-muted:  var(--color-slate-muted);
+  --color-accent:      var(--color-copper);
+  --color-accent-hover:var(--color-terracotta);
 
-  --font-body: var(--font-body, "Inter", sans-serif);
-  --font-display: var(--font-display, "Sora", sans-serif);
+  /* ── Typography ─────────────────────────────────────────── */
+  --font-body:    var(--font-body,    "Inter", sans-serif);
+  --font-display: var(--font-display, "Sora",  sans-serif);
+}
+
+/*
+  Short-name CSS variable aliases so that the Tailwind v4 arbitrary-value
+  syntax  bg-(--navy)  →  background: var(--navy)  resolves correctly.
+  These variables are used by every home-page component.
+*/
+:root {
+  --navy:        #0F3040;
+  --navy-deep:   #1A4A5C;
+  --slate:       #464858;
+  --slate-muted: #7A7C8A;
+  --terracotta:  #A56F63;
+  --copper:      #D99B7F;
+  --cream:       #F7F2EF;
+  --peach:       #F5E6DF;
+  --mist:        #E8F4FB;
 }
 
 @layer base {

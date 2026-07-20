@@ -2,8 +2,9 @@
 import type { Metadata } from "next";
 import { Sora, Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "../components/layout/Navbar/Navbar"; // আপনার পাথ ঠিক রাখুন
-import Footer from "../components/layout/Footer/Footer"; // আপনার পাথ ঠিক রাখুন
+import Navbar from "../components/layout/Navbar/Navbar";
+import Footer from "../components/layout/Footer/Footer";
+import { ToastContainer } from "react-toastify";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -39,6 +40,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <ToastContainer />
       </body>
     </html>
   );
