@@ -2,52 +2,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { Product } from "@/src/types/product.type";
 import { FiShoppingCart } from "react-icons/fi";
+import ProductCard from "@/src/lib/ui/ProductCard";
 
 interface FeaturedProductsProps {
   products: Product[];
 }
 
-function ProductCard({ product }: { product: Product }) {
-  return (
-    <div className="bg-white rounded-xl border border-(--slate)/15 overflow-hidden group hover:shadow-md hover:border-(--copper) transition-all duration-200 flex flex-col">
-      {/* Image */}
-      <div className="relative w-full aspect-square bg-(--mist) overflow-hidden">
-        <Image
-          src={product.image}
-          alt={product.name}
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-300"
-          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-        />
-        {/* Category badge */}
-        <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wide bg-(--navy) text-white">
-          {product.category}
-        </span>
-      </div>
 
-      {/* Info */}
-      <div className="p-4 flex flex-col flex-1">
-        <p className="text-xs text-(--slate-muted) mb-1">{product.brand}</p>
-        <h3 className="text-sm font-semibold text-(--navy) line-clamp-2 mb-3 flex-1">
-          {product.name}
-        </h3>
-
-        <div className="flex items-center justify-between mt-auto">
-          <span className="text-base font-bold text-(--copper)">
-            ৳{product.price.toLocaleString()}
-          </span>
-          <Link
-            href={`/products/${product._id}`}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold text-white bg-(--navy) hover:bg-(--copper) transition-colors duration-200"
-          >
-            <FiShoppingCart size={13} />
-            View
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export default function FeaturedProducts({ products }: FeaturedProductsProps) {
   if (!products || products.length === 0) return null;

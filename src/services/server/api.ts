@@ -4,7 +4,7 @@ import { protectedFetch, serverFetch } from "../core/serverFetch";
 import { Order } from "@/src/types/order.type";
 import { Cart } from "@/src/types/cart.type";
 import { UserProfile } from "@/src/types/user.type";
-import { PaginatedResponse, Product } from "@/src/types/product.type";
+import { ApiResponse, PaginatedResponse, Product } from "@/src/types/product.type";
 
 export interface GetProductsParams {
   search?: string;
@@ -62,7 +62,7 @@ export const getFeaturedProducts = async () => {
 };
 
 export const getProductById = async (id: string) => {
-  return serverFetch<Product>(`/api/products/${id}`);
+  return serverFetch<ApiResponse<Product>>(`/api/products/${id}`);
 };
 
 // ---------------- Cart ----------------
