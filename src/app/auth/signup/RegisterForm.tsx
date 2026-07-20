@@ -69,13 +69,13 @@ export default function RegisterForm() {
                 return;
             }
 
-            // if (data?.user) {
-            //     await createUserProfile();
-            //     toast.success("Welcome to FastPlay! Your registration is complete.");
-            //     setIsLoading(false);
-            //     router.push(redirectUrl);
-            //     router.refresh();
-            // }
+            if (data?.user) {
+                // await createUserProfile();
+                toast.success("Welcome to FastPlay! Your registration is complete.");
+                setIsLoading(false);
+                router.push(redirectUrl);
+                router.refresh();
+            }
         } catch (err) {
             console.error("[RegisterForm] Unexpected network error:", err);
             toast.error("Network error. Please check your connection and try again.");
