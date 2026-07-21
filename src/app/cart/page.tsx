@@ -2,8 +2,10 @@
 import CartItemRow from "@/src/components/cart/CartItemRow";
 import CartSummary from "@/src/components/cart/CartSummary";
 import EmptyCart from "@/src/components/cart/EmptyCart";
+import { getUserSession } from "@/src/services/core/session";
 import { getCart } from "@/src/services/server/api";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { FiArrowLeft } from "react-icons/fi";
 
 export const metadata = {
@@ -11,6 +13,10 @@ export const metadata = {
 };
 
 export default async function CartPage() {
+    const session = await getUserSession();
+    if (!session) {
+        redirect("/auth/signin?redirect=/cart");
+    }
     // সার্ভার সাইড সিকিউর ডাটা ফেচিং
     const cartResponse = await getCart();
     const cart = cartResponse;

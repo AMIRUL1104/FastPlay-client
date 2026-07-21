@@ -30,7 +30,7 @@ export default function AddToCartButton({ product, quantity }: AddToCartButtonPr
         startTransition(async () => {
             try {
                 const res = await addToCart(payload);
-                console.log(res)
+                // console.log(res)
                 if (res?.success) {
                     // সেশন ও কার্ট ডেটা রিফ্রেশ করার জন্য
                     toast.success("addede to cart")

@@ -1,11 +1,17 @@
 import EmptyCheckout from "@/src/components/checkout/EmptyCheckout";
 import OrderSummary from "@/src/components/checkout/OrderSummary";
 import ShippingForm from "@/src/components/checkout/ShippingForm";
+import { getUserSession } from "@/src/services/core/session";
 import { getCart, getUserProfile } from "@/src/services/server/api";
+import { redirect } from "next/navigation";
 
 export const revalidate = 0; // রিয়েল-টাইম লেটেস্ট কার্ট ডেটা লোড করার জন্য
 
 export default async function CheckoutPage() {
+    const session = await getUserSession();
+    if (!session) {
+        redirect("/auth/signin?redirect=/checkout");
+    }
     // ১. সমান্তরালভাবে লেটেস্ট কার্ট ও ইউজার প্রোফাইল ফেচিং
     const [cartRes, userRes] = await Promise.all([
         getCart(),

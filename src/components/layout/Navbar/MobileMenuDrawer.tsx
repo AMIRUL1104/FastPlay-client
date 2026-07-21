@@ -5,6 +5,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { FiMenu, FiX, FiLogOut, FiInfo, FiMail } from "react-icons/fi";
 import { UserProfile } from "@/src/types/user.type";
+import { authClient } from "@/src/lib/auth-client";
 
 interface MobileMenuDrawerProps {
     user: UserProfile | null; // এটিও নিশ্চিত করুন
@@ -71,10 +72,11 @@ export default function MobileMenuDrawer({ user }: MobileMenuDrawerProps) {
                     {/* ইউজার থাকলে লগআউট অপশন নিচে প্লেস হবে */}
                     {user && (
                         <button
-                            onClick={() => {
+                            onClick={async () => {
                                 setIsOpen(false);
                                 // এখানে আপনার Better Auth বা সেশন সাইনআউট লজিক কল করুন
                                 // authClient.signOut();
+                                await authClient.signOut();
                             }}
                             className="flex w-full items-center gap-3 rounded-lg bg-red-500/10 hover:bg-red-500/20 px-3 py-2.5 text-sm font-semibold text-red-400 transition-colors cursor-pointer"
                         >
