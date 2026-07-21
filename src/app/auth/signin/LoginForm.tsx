@@ -15,6 +15,7 @@ import { useSearchParams } from "next/navigation";
 import { authClient } from "@/src/lib/auth-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+
 // Zod Validation Schema Definition
 const loginSchema = z.object({
   email: z.string().min(1, "Email is required").email("Please enter a valid email address"),

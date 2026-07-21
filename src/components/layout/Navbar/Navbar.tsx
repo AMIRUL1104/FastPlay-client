@@ -4,7 +4,7 @@ import { FiShoppingCart } from "react-icons/fi";
 import { getUserSession } from "@/src/services/core/session";
 import MobileBottomNav from "./MobileBottomNav";
 import MobileMenuDrawer from "./MobileMenuDrawer";
-import { AuthUser, UserProfile } from "@/src/types/user.type";
+import { UserProfile } from "@/src/types/user.type";
 
 const navLinks = [
     { label: "Home", href: "/" },
@@ -15,8 +15,10 @@ const navLinks = [
 
 export default async function Navbar() {
 
-    const session = (await getUserSession()) as AuthUser | null;
-    const currentUser = session ? session.user : null; // টাইপ: UserProfile | null
+    const session = (await getUserSession()) as UserProfile | null;
+    // console.log("user session : ", session);
+    const currentUser = session ? session : null; // টাইপ: UserProfile | null
+    // console.log("current user : ", currentUser);
 
     return (
         <>
@@ -73,7 +75,7 @@ export default async function Navbar() {
                             </>
                         ) : (
                             <Link
-                                href="/auth/login"
+                                href="/auth/signin"
                                 className="rounded-xl bg-copper px-4 py-2 text-sm font-bold text-white transition-all shadow-sm focus-visible:outline-2 focus-visible:outline-copper hover:bg-terracotta"
                             >
                                 Login

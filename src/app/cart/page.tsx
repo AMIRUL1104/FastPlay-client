@@ -13,8 +13,8 @@ export const metadata = {
 export default async function CartPage() {
     // সার্ভার সাইড সিকিউর ডাটা ফেচিং
     const cartResponse = await getCart();
-    const cart = cartResponse?.success ? cartResponse.data : null;
-
+    const cart = cartResponse;
+    // console.log(cartResponse)
     if (!cart || !cart.items || cart.items.length === 0) {
         return <EmptyCart />;
     }

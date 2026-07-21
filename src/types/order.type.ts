@@ -1,7 +1,7 @@
 import { CartItem } from "./cart.type";
 import { UserSnapshot } from "./user.type";
 
-export type OrderStatus = "pending" | "accepted" | "rejected";
+export type OrderStatus = "pending" | "accepted" | "rejected" | "cancelled";
 
 export interface OrderUserSnapshot extends UserSnapshot {
   phone: string;
@@ -10,6 +10,7 @@ export interface OrderUserSnapshot extends UserSnapshot {
 export interface ShippingAddress {
   address: string;
   city: string;
+  phone: string;
 }
 
 export interface Order {

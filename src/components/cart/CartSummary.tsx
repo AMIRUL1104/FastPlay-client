@@ -58,7 +58,6 @@ export default function CartSummary({ cart }: CartSummaryProps) {
             </div>
 
             <div className="mt-8 space-y-3">
-                {/* Checkout Button: bg-navy এবং hover:bg-copper থিমে সেট করা হয়েছে */}
                 <button
                     onClick={() => router.push("/checkout")}
                     disabled={isPending || cart.items.length === 0}
@@ -68,7 +67,6 @@ export default function CartSummary({ cart }: CartSummaryProps) {
                     <FiArrowRight size={16} />
                 </button>
 
-                {/* Clear Cart Button: থিমের bg-peach এবং text-terracotta তে কনভার্ট করা হয়েছে */}
                 <button
                     onClick={handleClearCart}
                     disabled={isPending || cart.items.length === 0}

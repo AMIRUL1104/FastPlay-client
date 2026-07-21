@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { useSearchParams } from "next/navigation";
 import { authClient } from "@/src/lib/auth-client";
+import { createUserProfile } from "@/src/services/server/action";
 
 
 const registerSchema = z.object({
@@ -70,7 +71,7 @@ export default function RegisterForm() {
             }
 
             if (data?.user) {
-                // await createUserProfile();
+                await createUserProfile();
                 toast.success("Welcome to FastPlay! Your registration is complete.");
                 setIsLoading(false);
                 router.push(redirectUrl);

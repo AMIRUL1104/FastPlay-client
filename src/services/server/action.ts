@@ -6,7 +6,7 @@ import {
   UpdateProductPayload,
 } from "@/src/types/product.type";
 import { authHeader } from "../core/serverFetch";
-import { Order } from "@/src/types/order.type";
+import { CreateOrderPayload, Order } from "@/src/types/order.type";
 import { UpdateProfilePayload } from "@/src/types/user.type";
 
 // -------------------- Product --------------------
@@ -51,8 +51,8 @@ export const deleteProduct = async (productId: string) => {
 
 // -------------------- Orders --------------------
 
-export const createOrder = async (data: Order) => {
-  return serverMutation<Order>("/api/orders", data);
+export const createOrder = async (data: CreateOrderPayload) => {
+  return serverMutation<CreateOrderPayload>("/api/orders", data);
 };
 
 export const acceptOrder = async (orderId: string) => {
@@ -61,6 +61,10 @@ export const acceptOrder = async (orderId: string) => {
 
 export const rejectOrder = async (orderId: string) => {
   return serverMutation(`/api/orders/${orderId}/reject`, {}, "PATCH");
+};
+
+export const cancelOrder = async (orderId: string) => {
+  return serverMutation(`/api/orders/${orderId}/cancel`, {}, "PATCH");
 };
 
 // -------------------- User Profile --------------------

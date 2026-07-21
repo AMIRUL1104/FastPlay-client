@@ -1,10 +1,12 @@
-
-
 import { protectedFetch, serverFetch } from "../core/serverFetch";
 import { Order } from "@/src/types/order.type";
 import { Cart } from "@/src/types/cart.type";
 import { UserProfile } from "@/src/types/user.type";
-import { ApiResponse, PaginatedResponse, Product } from "@/src/types/product.type";
+import {
+  ApiResponse,
+  PaginatedResponse,
+  Product,
+} from "@/src/types/product.type";
 
 export interface GetProductsParams {
   search?: string;
@@ -33,11 +35,9 @@ export const getProducts = async ({
   if (category) params.set("category", category);
   if (sort) params.set("sort", sort);
 
-  if (minPrice !== undefined)
-    params.set("minPrice", String(minPrice));
+  if (minPrice !== undefined) params.set("minPrice", String(minPrice));
 
-  if (maxPrice !== undefined)
-    params.set("maxPrice", String(maxPrice));
+  if (maxPrice !== undefined) params.set("maxPrice", String(maxPrice));
 
   params.set("page", String(page));
   params.set("limit", String(limit));
@@ -58,7 +58,9 @@ export const getProducts = async ({
 };
 
 export const getFeaturedProducts = async () => {
-  return serverFetch<{ success: boolean; data: Product[] }>("/api/products/featured");
+  return serverFetch<{ success: boolean; data: Product[] }>(
+    "/api/products/featured",
+  );
 };
 
 export const getProductById = async (id: string) => {
@@ -67,14 +69,33 @@ export const getProductById = async (id: string) => {
 
 // ---------------- Cart ----------------
 
-export const getCart = async () => {
-  return protectedFetch<Cart>("/api/cart");
+export const getCart = async (): Promise<Cart | null> => {
+  try {
+    const response = await protectedFetch<ApiResponse<Cart>>("/api/cart");
+
+    if (response?.success && response?.data) {
+      return response.data;
+    }
+
+    return null;
+  } catch (error) {
+    console.error("Failed to fetch cart:", error);
+    return null;
+  }
 };
 
 // ---------------- Orders ----------------
 
 export const getMyOrders = async () => {
-  return protectedFetch<Order[]>("/api/orders/my");
+  return protectedFetch<Order[]>("/api/orders");
+};
+
+export const getAllOrders = async () => {
+  return protectedFetch<Order[]>("/api/orders/admin");
+};
+
+export const getOrderById = async (orderId: string) => {
+  return protectedFetch<Order>(`/api/orders/${orderId}`);
 };
 
 // ---------------- Dashboard ----------------
@@ -96,5 +117,18 @@ export const getAllProductsForAdmin = async () => {
 // ---------------- User ----------------
 
 export const getUserProfile = async (): Promise<UserProfile | null> => {
-  return protectedFetch<UserProfile>("/api/users");
-}
+  try {
+    const response =
+      await protectedFetch<ApiResponse<UserProfile>>("/api/users");
+
+    // রেসপন্স সফল হলে এবং ডাটা থাকলে শুধু UserProfile অবজেক্টটি রিটার্ন করবে
+    if (response?.success && response?.data) {
+      return response.data;
+    }
+
+    return null;
+  } catch (error) {
+    console.error("Failed to fetch user profile:", error);
+    return null;
+  }
+};
