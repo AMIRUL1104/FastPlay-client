@@ -1,7 +1,7 @@
 import { protectedFetch, serverFetch } from "../core/serverFetch";
 import { Order } from "@/src/types/order.type";
 import { Cart } from "@/src/types/cart.type";
-import { UserProfile } from "@/src/types/user.type";
+import { UserProfile, UserProfiledetails } from "@/src/types/user.type";
 import {
   ApiResponse,
   PaginatedResponse,
@@ -90,30 +90,57 @@ export const getMyOrders = async () => {
   return protectedFetch<Order[]>("/api/orders");
 };
 
-export const getAllOrders = async () => {
-  return protectedFetch<Order[]>("/api/orders/admin");
-};
+export const getAllOrders = async (): Promise<Order[] | null> => {
+  const result =
+    await protectedFetch<ApiResponse<Order[]>>("/api/orders/admin");
 
+  return result?.data ?? null;
+};
 export const getOrderById = async (orderId: string) => {
   return protectedFetch<Order>(`/api/orders/${orderId}`);
 };
 
 // ---------------- Dashboard ----------------
+import type {
+  AdminDashboardStats,
+  DashboardResponse,
+  UserDashboardStats,
+} from "@/src/types/dashboard.type";
 
-export const getUserDashboard = async () => {
-  return protectedFetch("/api/dashboard/user");
-};
+export const getAdminDashboard =
+  async (): Promise<AdminDashboardStats | null> => {
+    const result = await protectedFetch<DashboardResponse<AdminDashboardStats>>(
+      "/api/dashboard/admin",
+    );
+    // console.log(result);
+    return result?.data ?? null;
+  };
 
-export const getAdminDashboard = async () => {
-  return protectedFetch("/api/dashboard/admin");
-};
+export const getUserDashboard =
+  async (): Promise<UserDashboardStats | null> => {
+    const result = await protectedFetch<DashboardResponse<UserDashboardStats>>(
+      "/api/dashboard/user",
+    );
 
+    return result?.data ?? null;
+  };
 // ---------------- Admin ----------------
 
-export const getAllProductsForAdmin = async () => {
-  return protectedFetch<Product[]>("/api/products/admin");
+export const getAllProductsForAdmin = async (): Promise<Product[] | null> => {
+  const result = await protectedFetch<ApiResponse<Product[]>>(
+    "/api/products/admin",
+  );
+  // console.log(result);
+
+  return result?.data ?? null;
 };
 
+export const getAllUsers = async (): Promise<UserProfiledetails[] | null> => {
+  const result =
+    await protectedFetch<ApiResponse<UserProfiledetails[]>>("/api/users/admin");
+
+  return result?.data ?? null;
+};
 // ---------------- User ----------------
 
 export const getUserProfile = async (): Promise<UserProfile | null> => {

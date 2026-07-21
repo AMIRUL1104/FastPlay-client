@@ -34,3 +34,16 @@ export type UpdateProfilePayload = Partial<CreateUserProfilePayload>;
 export interface AuthUser {
   user: UserProfile;
 }
+
+export interface UserProfiledetails {
+  _id: string;
+  userId: string;
+  fullName: string;
+  email: string;
+  phoneNumber?: string;
+  role?: string;
+  memberSince?: string;
+  avatarUrl?: string | null;
+  area?: string;
+  district?: string;
+}
