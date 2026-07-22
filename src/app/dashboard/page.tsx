@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 
 import { getUserSession } from "@/src/services/core/session";
 
-
+export const dynamic = "force-dynamic";
 const DashboardPage = async () => {
     const session = await getUserSession();
 

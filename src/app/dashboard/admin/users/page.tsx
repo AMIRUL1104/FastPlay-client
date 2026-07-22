@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Users, Mail, Phone, Calendar, Shield, UserCheck } from "lucide-react";
 import { getAllUsers } from "@/src/services/server/api";
 
-
+export const dynamic = "force-dynamic";
 export default async function ManageUsers() {
     const users = await getAllUsers();
     if (!users) {

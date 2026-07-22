@@ -44,7 +44,7 @@ export default function MobileBottomNav({ user }: MobileBottomNavProps) {
                 {user ? (
                     user.role === "admin" ? (
                         <Link
-                            href="/dashboard"
+                            href="/dashboard/admin"
                             className="flex flex-col items-center gap-1 p-2 text-xs font-medium transition-colors"
                             style={{ color: pathname.startsWith("/dashboard") ? "var(--copper)" : "rgba(255,255,255,0.7)" }}
                         >

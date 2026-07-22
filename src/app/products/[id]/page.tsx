@@ -9,7 +9,7 @@ import type { Metadata } from "next";
 interface ProductDetailsPageProps {
     params: Promise<{ id: string }>;
 }
-
+export const dynamic = "force-dynamic";
 export async function generateMetadata({
     params,
 }: ProductDetailsPageProps): Promise<Metadata> {

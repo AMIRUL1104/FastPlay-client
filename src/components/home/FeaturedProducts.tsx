@@ -8,7 +8,7 @@ interface FeaturedProductsProps {
   products: Product[];
 }
 
-
+export const dynamic = "force-dynamic";
 
 export default function FeaturedProducts({ products }: FeaturedProductsProps) {
   if (!products || products.length === 0) return null;

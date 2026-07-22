@@ -5,6 +5,7 @@ import "./globals.css";
 import Navbar from "../components/layout/Navbar/Navbar";
 import Footer from "../components/layout/Footer/Footer";
 import { ToastContainer } from "react-toastify";
+import { Suspense } from "react";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -35,7 +36,9 @@ export default function RootLayout({
         pb-16 md:pb-0 যোগ করা হয়েছে যাতে মোবাইলে ফিক্সড বটম ন্যাভবারের কারণে মেইন কনটেন্ট বা ফুটার ঢেকে না যায়।
       */}
       <body className="flex min-h-screen flex-col bg-bg-page text-text-body antialiased pb-16 md:pb-0">
-        <Navbar />
+        <Suspense fallback={<div className="h-16 bg-navy" />}>
+          <Navbar />
+        </Suspense>
         <main className="flex-1 flex flex-col w-full">
           {children}
         </main>

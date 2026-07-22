@@ -6,6 +6,10 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import { FiGrid, FiLoader } from "react-icons/fi";
 
+
+export const dynamic = "force-dynamic";
+
+
 export const metadata: Metadata = {
     title: "Products | FastPlay — Sports Equipment Store",
     description:

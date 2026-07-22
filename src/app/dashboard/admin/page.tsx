@@ -25,6 +25,8 @@ interface AdminDashboardData {
     totalUsers: number;
 }
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminDashboardOverviewPage() {
     const data: AdminDashboardData = (await getAdminDashboard()) || {
         totalProducts: 0,

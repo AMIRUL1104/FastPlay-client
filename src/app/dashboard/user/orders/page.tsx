@@ -2,7 +2,7 @@ import { getMyOrders } from "@/src/services/server/api";
 import OrderTableList from "./OrderTableList";
 // import { Order } from "@/src/types/order.type";
 
-
+export const dynamic = "force-dynamic";
 export default async function MyOrderPage() {
     const orders = await getMyOrders() || [];
     //   const orders: Order[] = (await getMyOrders()) || [];

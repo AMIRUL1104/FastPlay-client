@@ -7,6 +7,7 @@ import FAQSection from "../components/home/FAQSection";
 import AIAssistantBanner from "../components/home/AIAssistantBanner";
 import { getFeaturedProducts } from "../services/server/api";
 
+export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   const products = (await getFeaturedProducts())?.data ?? [];

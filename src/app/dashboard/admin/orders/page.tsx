@@ -22,6 +22,8 @@ import {
 import { Order } from "@/src/types/order.type";
 import { cancelOrder, acceptOrder, rejectOrder, } from "@/src/services/server/action";
 
+export const dynamic = "force-dynamic";
+
 export default function ManageOrdersPage() {
     const [orders, setOrders] = useState<Order[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
