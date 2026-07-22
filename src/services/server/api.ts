@@ -87,7 +87,9 @@ export const getCart = async (): Promise<Cart | null> => {
 // ---------------- Orders ----------------
 
 export const getMyOrders = async () => {
-  return protectedFetch<Order[]>("/api/orders");
+  // return protectedFetch<Order[]>("/api/orders");
+  const result = await protectedFetch<ApiResponse<Order[]>>("/api/orders");
+  return result?.data ?? null;
 };
 
 export const getAllOrders = async (): Promise<Order[] | null> => {
