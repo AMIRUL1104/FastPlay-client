@@ -107,7 +107,7 @@ export default function ProfileForm({ user }: ProfileFormProps) {
             <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-navy p-6 shadow-xl">
                 <div className="flex flex-col items-center gap-6 sm:flex-row">
                     {/* Avatar Preview */}
-                    <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-full border-2 border-copper bg-white/5">
+                    <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-full border-2 border-copper bg-white/5">
                         {formData.avatarUrl || user.avatarUrl ? (
                             <Image
                                 src={isEditing ? formData.avatarUrl || "" : user.avatarUrl || ""}

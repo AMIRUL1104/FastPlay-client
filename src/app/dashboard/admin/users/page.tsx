@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 export default async function ManageUsers() {
     const users = await getAllUsers();
     if (!users) {
-        return <div className="flex flex-col items-center justify-center min-h-[300px] rounded-xl border border-peach bg-bg-card p-8 text-center shadow-xs">
+        return <div className="flex flex-col items-center justify-center min-h-75 rounded-xl border border-peach bg-bg-card p-8 text-center shadow-xs">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-mist text-navy">
                 <Users className="h-6 w-6" />
             </div>
@@ -34,7 +34,7 @@ export default async function ManageUsers() {
 
             {/* Empty State */}
             {users.length === 0 ? (
-                <div className="flex flex-col items-center justify-center min-h-[300px] rounded-xl border border-peach bg-bg-card p-8 text-center shadow-xs">
+                <div className="flex flex-col items-center justify-center min-h-75 rounded-xl border border-peach bg-bg-card p-8 text-center shadow-xs">
                     <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-mist text-navy">
                         <Users className="h-6 w-6" />
                     </div>

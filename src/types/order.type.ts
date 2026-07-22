@@ -1,8 +1,12 @@
 import { CartItem } from "./cart.type";
 import { UserSnapshot } from "./user.type";
 
-export type OrderStatus = "pending" | "accepted" | "rejected" | "cancelled";
-
+export type OrderStatus =
+  | "pending"
+  | "accepted"
+  | "rejected"
+  | "cancelled"
+  | "completed";
 export interface OrderUserSnapshot extends UserSnapshot {
   phone: string;
 }

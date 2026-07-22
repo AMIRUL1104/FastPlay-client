@@ -7,7 +7,6 @@ import {
     Loader2,
     CheckCircle2,
     XCircle,
-    AlertOctagon,
     Eye,
     X,
     User,
@@ -20,7 +19,7 @@ import {
     getAllOrders,
 } from "@/src/services/server/api";
 import { Order } from "@/src/types/order.type";
-import { cancelOrder, acceptOrder, rejectOrder, } from "@/src/services/server/action";
+import { cancelOrder, acceptOrder, rejectOrder, completeOrder, } from "@/src/services/server/action";
 
 export const dynamic = "force-dynamic";
 
@@ -77,6 +76,17 @@ export default function ManageOrdersPage() {
             await fetchOrders();
         } catch (error) {
             console.error("Failed to cancel order:", error);
+        } finally {
+            setUpdatingId(null);
+        }
+    };
+    const handleComplete = async (orderId: string) => {
+        try {
+            setUpdatingId(orderId);
+            await completeOrder(orderId);
+            await fetchOrders();
+        } catch (error) {
+            console.error("Failed to complete order:", error);
         } finally {
             setUpdatingId(null);
         }
@@ -168,13 +178,17 @@ export default function ManageOrdersPage() {
             return (
                 <div className="flex items-center justify-end gap-1.5">
                     <button
-                        onClick={() => handleCancel(order._id)}
-                        type="button"
-                        className="inline-flex items-center gap-1 rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-xs font-semibold text-text-body transition-colors hover:bg-rose-50 hover:text-rose-600 hover:border-rose-200 shadow-xs cursor-pointer"
-                        title="Cancel Order"
+                        onClick={() => handleComplete(order._id)}
+                        className="inline-flex items-center gap-1 rounded-lg bg-blue-600 px-2.5 py-1.5 text-xs font-bold text-white hover:bg-blue-700"
                     >
-                        <AlertOctagon className="h-3.5 w-3.5 text-rose-500" />
-                        <span className="hidden sm:inline">Cancel</span>
+                        Complete
+                    </button>
+
+                    <button
+                        onClick={() => handleCancel(order._id)}
+                        className="inline-flex items-center gap-1 rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-xs font-semibold hover:bg-rose-50"
+                    >
+                        Cancel
                     </button>
                 </div>
             );

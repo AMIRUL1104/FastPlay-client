@@ -31,8 +31,8 @@ export default async function CheckoutPage() {
 
     // ডিফল্ট ভ্যালু প্রিপেয়ার করা
     const defaultShippingValues = {
-        phone: user?.phone || "",
-        address: user?.address || "",
+        phone: user?.phoneNumber || "",
+        address: user?.area || "",
     };
 
     return (

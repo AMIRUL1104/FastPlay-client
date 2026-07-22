@@ -67,6 +67,10 @@ export const cancelOrder = async (orderId: string) => {
   return serverMutation(`/api/orders/${orderId}/cancel`, {}, "PATCH");
 };
 
+export const completeOrder = async (id: string) => {
+  return serverMutation(`/api/orders/${id}/complete`, {}, "PATCH");
+};
+
 // -------------------- User Profile --------------------
 
 export const createUserProfile = async () => {
