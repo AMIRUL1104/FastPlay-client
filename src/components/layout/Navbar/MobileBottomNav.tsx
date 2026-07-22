@@ -42,14 +42,25 @@ export default function MobileBottomNav({ user }: MobileBottomNavProps) {
 
                 {/* এখন user ডাইরেক্ট প্রোফাইল অবজেক্ট হিসেবে চেক হবে */}
                 {user ? (
-                    <Link
-                        href="/dashboard"
-                        className="flex flex-col items-center gap-1 p-2 text-xs font-medium transition-colors"
-                        style={{ color: pathname.startsWith("/dashboard") ? "var(--copper)" : "rgba(255,255,255,0.7)" }}
-                    >
-                        <FiSliders size={20} />
-                        <span>Dashboard</span>
-                    </Link>
+                    user.role === "admin" ? (
+                        <Link
+                            href="/dashboard"
+                            className="flex flex-col items-center gap-1 p-2 text-xs font-medium transition-colors"
+                            style={{ color: pathname.startsWith("/dashboard") ? "var(--copper)" : "rgba(255,255,255,0.7)" }}
+                        >
+                            <FiSliders size={20} />
+                            <span>Dashboard</span>
+                        </Link>
+                    ) : (
+                        <Link
+                            href="/dashboard/user/orders"
+                            className="flex flex-col items-center gap-1 p-2 text-xs font-medium transition-colors"
+                            style={{ color: pathname.startsWith("/dashboard") ? "var(--copper)" : "rgba(255,255,255,0.7)" }}
+                        >
+                            <FiSliders size={20} />
+                            <span>Orders</span>
+                        </Link>
+                    )
                 ) : (
                     <Link
                         href="/auth/signin"

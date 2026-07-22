@@ -58,7 +58,6 @@ interface OrderTableListProps {
 export default function OrderTableList({ orders }: OrderTableListProps) {
     const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
-    // Status Badge Rendering Helper
     const renderStatusBadge = (status: string) => {
         const s = status?.toLowerCase();
         switch (s) {
@@ -119,8 +118,101 @@ export default function OrderTableList({ orders }: OrderTableListProps) {
 
     return (
         <>
-            {/* Responsive Orders Table */}
-            <div className="w-full overflow-hidden rounded-2xl border border-peach bg-bg-card shadow-xs">
+            {/* 📱 MOBILE VIEW: Cards (Visible only on small screens < md) */}
+            <div className="grid grid-cols-1 gap-4 md:hidden">
+                {orders.map((order) => {
+                    const formattedDate = order.createdAt
+                        ? new Date(order.createdAt).toLocaleDateString("en-GB", {
+                            day: "2-digit",
+                            month: "short",
+                            year: "numeric",
+                        })
+                        : "N/A";
+
+                    const firstProduct = order.products?.[0];
+                    const totalItemsCount = order.products?.length || 0;
+                    const statusLower = order.status?.toLowerCase();
+                    const canCancel =
+                        statusLower === "pending" || statusLower === "accepted";
+
+                    return (
+                        <div
+                            key={order._id}
+                            className="rounded-2xl border border-peach bg-bg-card p-4 shadow-xs space-y-3.5"
+                        >
+                            {/* Card Top Header */}
+                            <div className="flex items-center justify-between border-b border-peach/60 pb-3">
+                                <div>
+                                    <p className="text-[10px] text-text-muted font-mono uppercase tracking-wider">
+                                        Order #{order._id.slice(-6).toUpperCase()}
+                                    </p>
+                                    <div className="flex items-center gap-1 text-xs font-semibold text-text-head mt-0.5">
+                                        <Calendar className="h-3.5 w-3.5 text-copper" />
+                                        <span>{formattedDate}</span>
+                                    </div>
+                                </div>
+                                <div>{renderStatusBadge(order.status)}</div>
+                            </div>
+
+                            {/* Product Info */}
+                            <div className="flex items-center gap-3">
+                                {firstProduct?.image && (
+                                    <div className="relative h-14 w-14 overflow-hidden rounded-xl border border-peach bg-mist shrink-0">
+                                        <Image
+                                            src={firstProduct.image}
+                                            alt={firstProduct.name || "Product"}
+                                            fill
+                                            sizes="56px"
+                                            className="object-cover"
+                                        />
+                                    </div>
+                                )}
+                                <div className="min-w-0 flex-1">
+                                    <p className="font-bold text-text-head text-xs truncate">
+                                        {firstProduct?.name || "Order Item"}
+                                    </p>
+                                    {totalItemsCount > 1 && (
+                                        <p className="text-[11px] text-text-muted font-medium flex items-center gap-1 mt-0.5">
+                                            <Package className="h-3 w-3 text-copper inline" />
+                                            +{totalItemsCount - 1} more item
+                                            {totalItemsCount - 1 > 1 ? "s" : ""}
+                                        </p>
+                                    )}
+                                    <p className="text-xs font-black text-copper mt-1">
+                                        Total: ৳{order.totalPrice?.toLocaleString()}
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Action Buttons */}
+                            <div className="flex items-center justify-end gap-2 pt-2 border-t border-peach/40">
+                                {canCancel && (
+                                    <button
+                                        onClick={() => handleCancelOrder(order._id)}
+                                        type="button"
+                                        className="flex-1 inline-flex items-center justify-center gap-1 rounded-xl bg-rose-500/10 px-3 py-2 text-xs font-bold text-rose-600 hover:bg-rose-500 hover:text-white transition-all cursor-pointer border border-rose-500/20"
+                                    >
+                                        <XCircle className="h-3.5 w-3.5" />
+                                        <span>Cancel Order</span>
+                                    </button>
+                                )}
+
+                                <button
+                                    onClick={() => setSelectedOrder(order)}
+                                    type="button"
+                                    className="flex-1 inline-flex items-center justify-center gap-1 rounded-xl bg-copper px-3 py-2 text-xs font-bold text-white hover:bg-terracotta transition-all shadow-xs cursor-pointer"
+                                >
+                                    <Eye className="h-3.5 w-3.5" />
+                                    <span>Details</span>
+                                </button>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+
+            {/* 💻 DESKTOP & TABLET VIEW: Table (Hidden on small screens >= md) */}
+            <div className="hidden md:block w-full overflow-hidden rounded-2xl border border-peach bg-bg-card shadow-xs">
                 <div className="overflow-x-auto max-w-full">
                     <table className="w-full text-left text-xs sm:text-sm text-text-body border-collapse min-w-[700px]">
                         <thead className="sticky top-0 z-10 border-b border-peach bg-mist text-[11px] sm:text-xs font-bold uppercase tracking-wider text-text-head font-display">
@@ -153,7 +245,6 @@ export default function OrderTableList({ orders }: OrderTableListProps) {
                                         key={order._id}
                                         className="transition-colors hover:bg-peach/10"
                                     >
-                                        {/* Order Date */}
                                         <td className="px-4 py-3.5 whitespace-nowrap">
                                             <div className="flex items-center gap-1.5 text-text-head font-medium">
                                                 <Calendar className="h-3.5 w-3.5 text-copper shrink-0" />
@@ -164,7 +255,6 @@ export default function OrderTableList({ orders }: OrderTableListProps) {
                                             </p>
                                         </td>
 
-                                        {/* Products Summary */}
                                         <td className="px-4 py-3.5">
                                             <div className="flex items-center gap-3">
                                                 {firstProduct?.image && (
@@ -193,22 +283,18 @@ export default function OrderTableList({ orders }: OrderTableListProps) {
                                             </div>
                                         </td>
 
-                                        {/* Total Price */}
                                         <td className="px-4 py-3.5 whitespace-nowrap">
                                             <span className="font-black text-copper text-xs sm:text-sm font-display">
                                                 ৳{order.totalPrice?.toLocaleString()}
                                             </span>
                                         </td>
 
-                                        {/* Status */}
                                         <td className="px-4 py-3.5 whitespace-nowrap">
                                             {renderStatusBadge(order.status)}
                                         </td>
 
-                                        {/* Action Buttons */}
                                         <td className="px-4 py-3.5 whitespace-nowrap text-right">
                                             <div className="flex items-center justify-end gap-2">
-                                                {/* Cancel Order Button */}
                                                 {canCancel && (
                                                     <button
                                                         onClick={() => handleCancelOrder(order._id)}
@@ -220,7 +306,6 @@ export default function OrderTableList({ orders }: OrderTableListProps) {
                                                     </button>
                                                 )}
 
-                                                {/* Details Modal Trigger Button */}
                                                 <button
                                                     onClick={() => setSelectedOrder(order)}
                                                     type="button"
@@ -239,18 +324,18 @@ export default function OrderTableList({ orders }: OrderTableListProps) {
                 </div>
             </div>
 
-            {/* Order Details Modal */}
+            {/* 🔎 ORDER DETAILS MODAL (Fully Responsive for All Devices) */}
             {selectedOrder && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-xs animate-in fade-in duration-200">
-                    <div className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl border border-peach bg-bg-card p-5 sm:p-6 shadow-xl space-y-5">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-3 sm:p-4 backdrop-blur-xs animate-in fade-in duration-200">
+                    <div className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl border border-peach bg-bg-card p-4 sm:p-6 shadow-xl space-y-4 sm:space-y-5">
                         {/* Modal Header */}
-                        <div className="flex items-center justify-between border-b border-peach pb-4">
+                        <div className="flex items-center justify-between border-b border-peach pb-3.5">
                             <div>
-                                <h3 className="text-lg font-bold text-text-head font-display flex items-center gap-2">
-                                    <ShoppingBag className="h-5 w-5 text-copper" />
+                                <h3 className="text-base sm:text-lg font-bold text-text-head font-display flex items-center gap-2">
+                                    <ShoppingBag className="h-4 w-4 sm:h-5 sm:w-5 text-copper" />
                                     Order Details
                                 </h3>
-                                <p className="text-xs text-text-muted font-mono flex items-center gap-1 mt-0.5">
+                                <p className="text-[11px] sm:text-xs text-text-muted font-mono flex items-center gap-1 mt-0.5">
                                     <Hash className="h-3 w-3 text-copper" />
                                     ID: {selectedOrder._id}
                                 </p>
@@ -267,7 +352,7 @@ export default function OrderTableList({ orders }: OrderTableListProps) {
                         {/* Modal Content */}
                         <div className="space-y-4 text-xs sm:text-sm">
                             {/* Customer & Shipping Summary Grid */}
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                                 <div className="rounded-xl border border-peach bg-mist/50 p-3.5 space-y-1.5">
                                     <p className="font-bold text-text-head flex items-center gap-1.5 text-xs uppercase tracking-wider">
                                         <User className="h-4 w-4 text-copper" />
@@ -276,7 +361,7 @@ export default function OrderTableList({ orders }: OrderTableListProps) {
                                     <p className="font-medium text-text-head">
                                         {selectedOrder.user?.name || "N/A"}
                                     </p>
-                                    <p className="text-text-muted">
+                                    <p className="text-text-muted break-all">
                                         {selectedOrder.user?.email || "N/A"}
                                     </p>
                                     <p className="text-text-muted">
@@ -302,7 +387,7 @@ export default function OrderTableList({ orders }: OrderTableListProps) {
                             </div>
 
                             {/* Payment & Status Info */}
-                            <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-peach p-3.5 bg-bg-card">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-xl border border-peach p-3.5 bg-bg-card">
                                 <div className="flex items-center gap-2">
                                     <CreditCard className="h-4 w-4 text-copper" />
                                     <span className="font-medium text-text-muted">Payment:</span>
@@ -317,7 +402,7 @@ export default function OrderTableList({ orders }: OrderTableListProps) {
                             </div>
 
                             {/* Products List */}
-                            <div className="space-y-3">
+                            <div className="space-y-2.5">
                                 <h4 className="font-bold text-text-head text-xs uppercase tracking-wider">
                                     Ordered Products ({selectedOrder.products?.length || 0})
                                 </h4>
@@ -328,7 +413,7 @@ export default function OrderTableList({ orders }: OrderTableListProps) {
                                             className="flex items-center justify-between gap-3 p-3 bg-bg-card"
                                         >
                                             <div className="flex items-center gap-3 min-w-0">
-                                                <div className="relative h-12 w-12 overflow-hidden rounded-lg border border-peach bg-mist shrink-0">
+                                                <div className="relative h-11 w-11 sm:h-12 sm:w-12 overflow-hidden rounded-lg border border-peach bg-mist shrink-0">
                                                     <Image
                                                         src={item.image || "/placeholder.png"}
                                                         alt={item.name}
@@ -363,20 +448,20 @@ export default function OrderTableList({ orders }: OrderTableListProps) {
                             </div>
 
                             {/* Total Summary */}
-                            <div className="flex items-center justify-between rounded-xl bg-peach/40 p-4 border border-peach">
-                                <span className="text-sm font-bold text-text-head">Total Amount:</span>
-                                <span className="text-lg font-black text-terracotta font-display">
+                            <div className="flex items-center justify-between rounded-xl bg-peach/40 p-3.5 sm:p-4 border border-peach">
+                                <span className="text-xs sm:text-sm font-bold text-text-head">Total Amount:</span>
+                                <span className="text-base sm:text-lg font-black text-terracotta font-display">
                                     ৳{selectedOrder.totalPrice?.toLocaleString()}
                                 </span>
                             </div>
                         </div>
 
                         {/* Modal Footer */}
-                        <div className="flex justify-end pt-2">
+                        <div className="flex justify-end pt-1">
                             <button
                                 onClick={() => setSelectedOrder(null)}
                                 type="button"
-                                className="rounded-xl bg-copper px-5 py-2 text-xs font-bold text-white hover:bg-terracotta transition-colors shadow-xs cursor-pointer"
+                                className="w-full sm:w-auto rounded-xl bg-copper px-5 py-2.5 sm:py-2 text-xs font-bold text-white hover:bg-terracotta transition-colors shadow-xs cursor-pointer text-center"
                             >
                                 Close
                             </button>
