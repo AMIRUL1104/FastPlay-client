@@ -1,10 +1,11 @@
 // src/components/navbar/Navbar.tsx
 import Link from "next/link";
-import { FiLogOut, FiShoppingBag, FiShoppingCart, FiSliders, FiUser } from "react-icons/fi";
+import { FiShoppingBag, FiShoppingCart, FiSliders, FiUser } from "react-icons/fi";
 import { getUserSession } from "@/src/services/core/session";
 import MobileBottomNav from "./MobileBottomNav";
 import MobileMenuDrawer from "./MobileMenuDrawer";
 import { UserProfile } from "@/src/types/user.type";
+import Logout from "./Logout";
 
 // Next.js-কে বলা হচ্ছে এটি ডায়নামিক রেন্ডারিং ব্যবহার করবে
 export const dynamic = "force-dynamic";
@@ -96,13 +97,7 @@ export default async function Navbar() {
                                             <span>My Profile</span>
                                         </Link>
 
-                                        <button
-                                            type="button"
-                                            className="flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-bold text-rose-600 transition-colors hover:bg-rose-500/10"
-                                        >
-                                            <FiLogOut size={16} />
-                                            <span>Logout</span>
-                                        </button>
+                                        <Logout />
                                     </div>
                                 </div>
                             </>

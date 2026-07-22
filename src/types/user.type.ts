@@ -29,7 +29,7 @@ export type CreateUserProfilePayload = Pick<
   "name" | "phone" | "address"
 >;
 
-export type UpdateProfilePayload = Partial<CreateUserProfilePayload>;
+// export type UpdateProfilePayload = Partial<CreateUserProfilePayload>;
 
 export interface AuthUser {
   user: UserProfile;
@@ -46,4 +46,13 @@ export interface UserProfiledetails {
   avatarUrl?: string | null;
   area?: string;
   district?: string;
+}
+
+// Database-এর ফিল্ড নেমগুলোর সাথে ১০০% মিল রেখে Payload
+export interface UpdateProfilePayload {
+  fullName?: string;
+  phoneNumber?: string;
+  area?: string;
+  district?: string;
+  avatarUrl?: string | null;
 }

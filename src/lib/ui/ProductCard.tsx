@@ -52,7 +52,7 @@ function ProductCard({ product }: { product: Product }) {
                 </div>
 
                 {/* Actions */}
-                <div className="flex gap-2 mt-auto items-center">
+                <div className="flex gap-2 max-sm:flex-col mt-auto items-center">
                     {/* রিয়াল এপিআই অ্যাকশন ও লোডিং স্টেটসহ নতুন বাটন */}
                     <AddToCartButton product={product} quantity={1} />
 

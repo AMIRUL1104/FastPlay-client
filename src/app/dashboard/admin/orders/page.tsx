@@ -199,7 +199,7 @@ export default function ManageOrdersPage() {
 
             {/* Loading State */}
             {loading ? (
-                <div className="flex flex-col items-center justify-center min-h-[300px] rounded-xl border border-peach bg-bg-card p-8 shadow-xs">
+                <div className="flex flex-col items-center justify-center min-h-75 rounded-xl border border-peach bg-bg-card p-8 shadow-xs">
                     <Loader2 className="h-8 w-8 animate-spin text-copper" />
                     <p className="mt-3 text-xs sm:text-sm font-medium text-text-muted">
                         Loading orders...
@@ -207,7 +207,7 @@ export default function ManageOrdersPage() {
                 </div>
             ) : orders.length === 0 ? (
                 /* Empty State */
-                <div className="flex flex-col items-center justify-center min-h-[300px] rounded-xl border border-peach bg-bg-card p-8 text-center shadow-xs">
+                <div className="flex flex-col items-center justify-center min-h-75 rounded-xl border border-peach bg-bg-card p-8 text-center shadow-xs">
                     <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-mist text-navy">
                         <ShoppingBag className="h-6 w-6" />
                     </div>
@@ -222,7 +222,7 @@ export default function ManageOrdersPage() {
                 /* Clean Responsive Orders Table */
                 <div className="w-full overflow-hidden rounded-xl border border-peach bg-bg-card shadow-xs">
                     <div className="overflow-x-auto max-w-full">
-                        <table className="w-full text-left text-xs sm:text-sm text-text-body border-collapse min-w-[600px]">
+                        <table className="w-full text-left text-xs sm:text-sm text-text-body border-collapse min-w-150">
                             <thead className="sticky top-0 z-10 border-b border-peach bg-mist text-[11px] sm:text-xs font-bold uppercase tracking-wider text-text-head font-display">
                                 <tr>
                                     <th scope="col" className="px-4 py-3.5">Customer</th>
@@ -256,7 +256,7 @@ export default function ManageOrdersPage() {
                                                         <User className="h-3.5 w-3.5 text-text-muted shrink-0" />
                                                         {order.user?.name || "N/A"}
                                                     </p>
-                                                    <p className="text-[11px] text-text-muted truncate max-w-[140px]">
+                                                    <p className="text-[11px] text-text-muted truncate max-w-35">
                                                         {order.user?.email || "N/A"}
                                                     </p>
                                                 </div>

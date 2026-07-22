@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { authClient } from "@/src/lib/auth-client";
 import { zodResolver } from "@hookform/resolvers/zod";
+// import { createUserProfile } from "@/src/services/server/action";
 
 
 // Zod Validation Schema Definition
@@ -63,6 +64,7 @@ export default function LoginForm() {
       }
 
       if (data?.user) {
+        // await createUserProfile();
         toast.success("Welcome to FastPlay Sports Store!");
         setIsLoading(false);
         router.push(searchParams.get("redirect") || "/");

@@ -15,14 +15,14 @@ import {
 } from "react-icons/fi";
 import { UserProfile } from "@/src/types/user.type";
 import { authClient } from "@/src/lib/auth-client";
-
+import { useRouter } from "next/navigation";
 interface MobileMenuDrawerProps {
     user: UserProfile | null;
 }
 
 export default function MobileMenuDrawer({ user }: MobileMenuDrawerProps) {
     const [isOpen, setIsOpen] = useState(false);
-
+    const router = useRouter();
     return (
         <div className="md:hidden">
             {/* Hamburger Toggle Button */}
@@ -38,14 +38,14 @@ export default function MobileMenuDrawer({ user }: MobileMenuDrawerProps) {
             {/* Backdrop overlay */}
             {isOpen && (
                 <div
-                    className="fixed inset-0 top-[64px] z-40 bg-black/40 backdrop-blur-xs"
+                    className="fixed inset-0 top-64px z-40 bg-black/40 backdrop-blur-xs"
                     onClick={() => setIsOpen(false)}
                 />
             )}
 
             {/* Slide-out Menu */}
             <div
-                className={`fixed bottom-0 right-0 top-[64px] z-50 w-64 transform border-l border-white/10 bg-navy p-5 shadow-xl transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "translate-x-full"
+                className={`fixed bottom-0 right-0 top-64px z-50 w-64 transform border-l border-white/10 bg-navy p-5 shadow-xl transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "translate-x-full"
                     }`}
             >
                 <nav className="flex h-full flex-col justify-between pb-12">
@@ -133,8 +133,14 @@ export default function MobileMenuDrawer({ user }: MobileMenuDrawerProps) {
                         <button
                             type="button"
                             onClick={async () => {
-                                setIsOpen(false);
-                                await authClient.signOut();
+                                await authClient.signOut({
+                                    fetchOptions: {
+                                        onSuccess: () => {
+                                            router.push("/auth/signin"); // redirect to login page
+                                            router.refresh();
+                                        },
+                                    },
+                                });
                             }}
                             className="flex w-full cursor-pointer items-center gap-3 rounded-lg bg-red-500/10 px-3 py-2.5 text-sm font-semibold text-red-400 transition-colors hover:bg-red-500/20"
                         >

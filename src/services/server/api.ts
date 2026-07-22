@@ -145,12 +145,12 @@ export const getAllUsers = async (): Promise<UserProfiledetails[] | null> => {
 };
 // ---------------- User ----------------
 
-export const getUserProfile = async (): Promise<UserProfile | null> => {
+export const getUserProfile = async (): Promise<UserProfiledetails | null> => {
   try {
     const response =
-      await protectedFetch<ApiResponse<UserProfile>>("/api/users");
+      await protectedFetch<ApiResponse<UserProfiledetails>>("/api/users");
 
-    // রেসপন্স সফল হলে এবং ডাটা থাকলে শুধু UserProfile অবজেক্টটি রিটার্ন করবে
+    // রেসপন্স সফল হলে এবং ডাটা থাকলে শুধু UserProfiledetails অবজেক্টটি রিটার্ন করবে
     if (response?.success && response?.data) {
       return response.data;
     }
