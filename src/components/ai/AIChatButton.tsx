@@ -45,7 +45,7 @@ export function AIChatButton() {
         onClick={handleToggle}
         aria-label={isOpen ? "Close AI Assistant" : "Open AI Assistant"}
         className={`
-          fixed bottom-5 right-4 z-50
+          fixed bottom-20 right-4 z-50
           sm:right-6 sm:bottom-6
           w-14 h-14 rounded-full
           bg-(--navy) text-white
@@ -53,7 +53,7 @@ export function AIChatButton() {
           flex items-center justify-center
           transition-all duration-300 ease-out
           hover:scale-105 active:scale-95
-          cursor-pointer
+          cursor-pointer border-2 border-white
           ${isOpen ? "rotate-0" : "rotate-0"}
         `}
       >

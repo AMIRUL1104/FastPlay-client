@@ -69,7 +69,7 @@ export default async function Navbar() {
                                     </Link>
                                 ) : (
                                     <Link
-                                        href="/dashboard/user/orders"
+                                        href="/orders"
                                         className="flex flex-col items-center gap-1 p-2 text-xs font-medium text-white/80 transition-colors hover:text-copper"
                                     >
                                         <FiShoppingBag size={20} />

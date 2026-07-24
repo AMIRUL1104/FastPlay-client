@@ -8,7 +8,7 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const { name, brand, price, stock, image, slug } = product;
+  const { name, brand, price, stock, image, slug, _id } = product;
 
   return (
     <div className="flex-shrink-0 w-44 bg-white rounded-xl border border-[#E8E8EE] overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
@@ -45,8 +45,8 @@ export function ProductCard({ product }: ProductCardProps) {
           </span>
           <span
             className={`text-[10px] font-medium px-1.5 py-0.5 rounded-full ${stock > 0
-                ? "bg-(--mist) text-(--navy)"
-                : "bg-red-50 text-red-500"
+              ? "bg-(--mist) text-(--navy)"
+              : "bg-red-50 text-red-500"
               }`}
             style={{ fontFamily: "Inter, sans-serif" }}
           >
@@ -55,7 +55,7 @@ export function ProductCard({ product }: ProductCardProps) {
         </div>
 
         <Link
-          href={`/products/${slug}`}
+          href={`/products/${_id}`}
           className="mt-1.5 w-full text-center text-[11px] font-semibold text-white bg-(--navy) hover:bg-(--navy-deep) transition-colors duration-150 rounded-lg py-1.5"
           style={{ fontFamily: "Inter, sans-serif" }}
         >

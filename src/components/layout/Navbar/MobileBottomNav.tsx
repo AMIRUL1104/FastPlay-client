@@ -18,7 +18,7 @@ export default function MobileBottomNav({ user }: MobileBottomNavProps) {
     const baseLinks = [
         { label: "Home", href: "/", icon: FiHome },
         { label: "Products", href: "/products", icon: FiPackage },
-        { label: "AI", href: "/ai-assistant", icon: FiCpu },
+        { label: "Profile", href: "/profile", icon: FiUser },
     ];
 
     return (
@@ -53,7 +53,7 @@ export default function MobileBottomNav({ user }: MobileBottomNavProps) {
                         </Link>
                     ) : (
                         <Link
-                            href="/dashboard/user/orders"
+                            href="/orders"
                             className="flex flex-col items-center gap-1 p-2 text-xs font-medium transition-colors"
                             style={{ color: pathname.startsWith("/dashboard") ? "var(--copper)" : "rgba(255,255,255,0.7)" }}
                         >

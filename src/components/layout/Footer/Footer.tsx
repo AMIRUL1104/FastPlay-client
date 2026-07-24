@@ -14,10 +14,9 @@ const footerLinks = {
         { label: "Contact", href: "/contact" },
     ],
     Account: [
-        { label: "Login", href: "/login" },
-        { label: "Register", href: "/register" },
-        { label: "My Orders", href: "/dashboard/orders" },
-        { label: "My Profile", href: "/dashboard/profile" },
+        { label: "Login", href: "/auth/signin" },
+        { label: "Register", href: "/auth/signup" },
+        { label: "My Profile", href: "/profile" },
     ],
 };
 

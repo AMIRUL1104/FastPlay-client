@@ -319,7 +319,7 @@ export default function ContactPage() {
                                         <FiArrowRight size={15} className="text-copper group-hover:translate-x-0.5 transition-transform duration-200" />
                                     </Link>
                                     <Link
-                                        href="/dashboard/orders"
+                                        href="/orders"
                                         className="flex items-center justify-between px-4 py-3 rounded-lg bg-white/10 hover:bg-copper/20 border border-white/10 hover:border-copper transition-all duration-200 group"
                                     >
                                         <span className="text-sm font-medium text-white">My Orders</span>

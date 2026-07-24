@@ -9,7 +9,7 @@ export const USER_SIDEBAR = [
   },
   {
     label: "Profile",
-    href: "/dashboard/user/profile",
+    href: "/profile",
   },
 ];
 

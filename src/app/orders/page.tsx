@@ -8,7 +8,7 @@ export default async function MyOrderPage() {
     //   const orders: Order[] = (await getMyOrders()) || [];
 
     return (
-        <div className="w-full max-w-full overflow-hidden space-y-6 p-3 sm:p-6 lg:p-8">
+        <div className="w-full max-w-5xl mx-auto overflow-hidden space-y-6 p-3 sm:p-6 lg:p-8">
             {/* Header Section */}
             <div>
                 <h1 className="text-xl sm:text-2xl lg:text-3xl font-black tracking-tight text-text-head font-display">
