@@ -68,8 +68,6 @@ export default function OrderTableList({ orders }: OrderTableListProps) {
                     </span>
                 );
             case "accepted":
-            case "completed":
-            case "delivered":
                 return (
                     <span className="inline-flex items-center rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-bold text-emerald-600 border border-emerald-500/20">
                         Accepted
@@ -85,6 +83,12 @@ export default function OrderTableList({ orders }: OrderTableListProps) {
                 return (
                     <span className="inline-flex items-center rounded-full bg-gray-500/10 px-2.5 py-0.5 text-[11px] font-bold text-gray-600 border border-gray-500/20">
                         Cancelled
+                    </span>
+                );
+            case "completed":
+                return (
+                    <span className="inline-flex items-center rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-bold text-emerald-600 border border-emerald-500/20">
+                        Completed
                     </span>
                 );
             default:

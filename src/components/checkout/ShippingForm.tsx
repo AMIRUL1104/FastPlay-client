@@ -63,7 +63,7 @@ export default function ShippingForm({ defaultValues }: ShippingFormProps) {
 
                 if (res?.success) {
                     toast.success(res.message);
-                    router.push("/dashboard/orders");
+                    router.push("/dashboard/user/orders");
                     router.refresh();
                 } else {
                     toast.error(res?.message);

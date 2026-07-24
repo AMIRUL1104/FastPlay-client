@@ -80,6 +80,7 @@ export default function ManageOrdersPage() {
             setUpdatingId(null);
         }
     };
+
     const handleComplete = async (orderId: string) => {
         try {
             setUpdatingId(orderId);
@@ -193,6 +194,19 @@ export default function ManageOrdersPage() {
                 </div>
             );
         }
+
+        if (status === "completed") {
+            return (
+                <span className="text-xs text-green-500">Completed</span>
+            );
+        }
+        if (status === "cancelled") {
+            return (
+                <span className="text-xs text-red-500">Cancelled</span>
+            );
+        }
+
+
 
         return (
             <span className="text-xs text-text-muted italic">No actions</span>

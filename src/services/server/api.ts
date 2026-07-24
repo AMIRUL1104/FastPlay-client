@@ -108,6 +108,7 @@ import type {
   DashboardResponse,
   UserDashboardStats,
 } from "@/src/types/dashboard.type";
+import { ChatMessage } from "@/src/types/ai.type";
 
 export const getAdminDashboard =
   async (): Promise<AdminDashboardStats | null> => {
@@ -160,4 +161,13 @@ export const getUserProfile = async (): Promise<UserProfiledetails | null> => {
     console.error("Failed to fetch user profile:", error);
     return null;
   }
+};
+
+// ---------------- AI ----------------
+export const getConversation = async (): Promise<ChatMessage[] | null> => {
+  const result = await protectedFetch<ApiResponse<ChatMessage[]>>(
+    "/api/ai/conversation",
+  );
+
+  return result?.data ?? null;
 };

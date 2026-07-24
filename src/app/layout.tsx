@@ -6,6 +6,7 @@ import Navbar from "../components/layout/Navbar/Navbar";
 import Footer from "../components/layout/Footer/Footer";
 import { ToastContainer } from "react-toastify";
 import { Suspense } from "react";
+import { AIChatButton } from "../components/ai/AIChatButton";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -41,6 +42,7 @@ export default function RootLayout({
         </Suspense>
         <main className="flex-1 flex flex-col w-full">
           {children}
+          <AIChatButton />
         </main>
         <Footer />
         <ToastContainer />

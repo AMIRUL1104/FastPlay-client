@@ -82,6 +82,7 @@ export const updateUserProfile = async (data: UpdateProfilePayload) => {
 };
 
 import { AddToCartPayload, UpdateCartItemPayload } from "@/src/types/cart.type";
+import { AIChatRequest, AIChatResponse } from "@/src/types/ai.type";
 
 // -------------------- Cart --------------------
 
@@ -144,4 +145,17 @@ export const clearCart = async () => {
       message: "Something went wrong while clearing the cart.",
     };
   }
+};
+
+// -------------------- ai --------------------
+export const sendMessage = async (
+  data: AIChatRequest,
+): Promise<AIChatResponse | null> => {
+  const result = await serverMutation("/api/ai/chat", data);
+  console.log("result", result);
+  if (!result.success) {
+    return null;
+  }
+
+  return result as AIChatResponse; // result নয়, result.data
 };
