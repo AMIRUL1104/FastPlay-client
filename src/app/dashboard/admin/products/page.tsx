@@ -6,6 +6,8 @@ import Image from "next/image";
 import { Plus, Edit, Trash2, PackageSearch, Loader2 } from "lucide-react";
 import { getAllProductsForAdmin } from "@/src/services/server/api";
 import { Product } from "@/src/types/product.type";
+import { deleteProduct } from "@/src/services/server/action";
+import { toast } from "react-toastify";
 
 export default function ManageProducts() {
     const [products, setProducts] = useState<Product[]>([]);
@@ -27,8 +29,15 @@ export default function ManageProducts() {
         fetchProducts();
     }, []);
 
-    const handleDeleteClick = (productId: string) => {
+    const handleDeleteClick = async (productId: string) => {
         console.log("Delete product ID:", productId);
+        const result = await deleteProduct(productId);
+        // console.log("Delete result:", result);
+        if (result.success) {
+            toast.success("Product deleted successfully.");
+        } else {
+            toast.error("Failed to delete product.");
+        }
     };
 
     return (
@@ -45,7 +54,7 @@ export default function ManageProducts() {
                 </div>
 
                 <Link
-                    href="/dashboard/admin/products/add"
+                    href="/dashboard/admin/products/new"
                     className="inline-flex items-center justify-center gap-2 rounded-xl bg-copper px-4 py-2.5 text-xs sm:text-sm font-bold text-white transition-all hover:bg-terracotta shadow-xs shrink-0 focus-visible:outline-2 focus-visible:outline-copper"
                 >
                     <Plus className="h-4 w-4" />
@@ -168,7 +177,7 @@ export default function ManageProducts() {
                                                 <div className="inline-flex items-center justify-end gap-1.5">
                                                     {/* Edit Button */}
                                                     <Link
-                                                        href={`/dashboard/admin/products/edit/${product._id}`}
+                                                        href={`/dashboard/admin/products/new?edit=${product._id}`}
                                                         className="p-1.5 rounded-lg text-text-muted transition-colors hover:bg-mist hover:text-navy"
                                                         title="Edit Product"
                                                     >

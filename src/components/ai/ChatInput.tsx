@@ -30,7 +30,7 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
   } = useSession()
 
   if (session) {
-    console.log("session", session);
+    // console.log("session", session);
     return (
       <div className="px-3 py-3 border-t border-[#E8E8EE] bg-white">
         <div className="flex items-end gap-2 bg-(--cream) rounded-xl px-3 py-2 border border-[#E0DAD6] focus-within:border-(--copper) transition-colors duration-150">

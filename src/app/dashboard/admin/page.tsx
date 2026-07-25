@@ -126,7 +126,7 @@ export default async function AdminDashboardOverviewPage() {
                 </h2>
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
                     <Link
-                        href="/dashboard/admin/products/add"
+                        href="/dashboard/admin/products/new"
                         className="group flex items-center justify-between rounded-xl border border-peach bg-bg-card p-3.5 sm:p-4 font-semibold text-text-head transition-all hover:border-copper hover:bg-peach/40 hover:text-accent-hover shadow-xs"
                     >
                         <span className="flex items-center gap-2.5 text-xs sm:text-sm truncate">
