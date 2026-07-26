@@ -23,3 +23,10 @@ export interface UserDashboardStats {
   rejectedOrders: number;
   cancelledOrders: number;
 }
+
+export interface Stats {
+  happyCustomers: number;
+  productsAvailable: number;
+  ordersDelivered: number;
+  sportCategories: number;
+}

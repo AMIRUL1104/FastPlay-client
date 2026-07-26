@@ -1,13 +1,16 @@
+import { getStats } from "@/src/services/server/api";
 import { FiUsers, FiPackage, FiShoppingBag, FiAward } from "react-icons/fi";
 
-const stats = [
-  { icon: FiUsers, value: "10,000+", label: "Happy Customers" },
-  { icon: FiPackage, value: "500+", label: "Products Available" },
-  { icon: FiShoppingBag, value: "25,000+", label: "Orders Delivered" },
-  { icon: FiAward, value: "4", label: "Sport Categories" },
-];
 
-export default function StatisticsSection() {
+export default async function StatisticsSection() {
+  const statsData = await getStats();
+  if (!statsData) return null;
+  const stats = [
+    { icon: FiUsers, value: statsData.happyCustomers ?? 0, label: "Happy Customers" },
+    { icon: FiPackage, value: statsData.productsAvailable ?? 0, label: "Products Available" },
+    { icon: FiShoppingBag, value: statsData.ordersDelivered ?? 0, label: "Orders Delivered" },
+    { icon: FiAward, value: statsData.sportCategories ?? 0, label: "Sport Categories" },
+  ];
   return (
     <section className="bg-(--navy) px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
       <div className="mx-auto max-w-7xl">

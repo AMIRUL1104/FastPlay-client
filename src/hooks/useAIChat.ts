@@ -2,10 +2,11 @@
 
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { SuggestedQuestion, UIMessage } from "../types/ai.type";
 import { getConversation } from "../services/server/api";
 import { sendMessage } from "../services/server/action";
+import { useSession } from "../lib/auth-client";
 
 const SUGGESTED_QUESTIONS: SuggestedQuestion[] = [
   { id: "1", text: "Show football under 5000" },
@@ -24,6 +25,15 @@ export function useAIChat() {
   const [hasUserSentMessage, setHasUserSentMessage] = useState(false);
 
   const historyLoadedRef = useRef(false);
+  const {
+    data: session, // Session data (null if not authenticated)
+  } = useSession();
+
+  useEffect(() => {
+    historyLoadedRef.current = false;
+    setMessages([]);
+    setHasUserSentMessage(false);
+  }, [session?.user?.id]);
 
   const openChat = useCallback(async () => {
     setIsOpen(true);
@@ -35,7 +45,7 @@ export function useAIChat() {
     try {
       const history = await getConversation();
       if (!history || history.length === 0) return;
-      console.log("history", history);
+      // console.log("history", history);
 
       const uiMessages: UIMessage[] = history.map((msg) => ({
         id: generateId(),

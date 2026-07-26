@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
     FiTruck,
@@ -17,6 +17,8 @@ import {
 } from "react-icons/fi";
 import { FaFutbol } from "react-icons/fa";
 import { GiCricketBat, GiBiceps, GiTennisRacket } from "react-icons/gi";
+import { SportShoe } from "lucide-react";
+import { getStats } from "@/src/services/server/api";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -52,12 +54,7 @@ const features = [
     { icon: FiSmile, title: "Easy Shopping", description: "Simple browsing, smart search, and a smooth checkout experience." },
 ];
 
-const stats = [
-    { icon: FiPackage, value: "500+", label: "Products" },
-    { icon: FiUsers, value: "10,000+", label: "Happy Customers" },
-    { icon: FiTruck, value: "25,000+", label: "Orders Delivered" },
-    { icon: FiAward, value: "4", label: "Sport Categories" },
-];
+
 
 const faqs = [
     {
@@ -149,6 +146,34 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function AboutPage() {
+    const [statsData, setStats] = useState({
+        happyCustomers: 0,
+        productsAvailable: 0,
+        ordersDelivered: 0,
+        sportCategories: 0,
+    });
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const data = await getStats();
+
+            if (data) {
+                setStats(data);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    const stats = [
+        { icon: FiPackage, value: statsData.productsAvailable ?? 0, label: "Products Available" },
+        { icon: FiUsers, value: statsData.happyCustomers ?? 0, label: "Happy Customers" },
+        { icon: FiTruck, value: statsData.ordersDelivered ?? 0, label: "Orders Delivered" },
+        { icon: FiAward, value: statsData.sportCategories ?? 0, label: "Sport Categories" },
+    ];
+
+
+
     return (
         <div className="w-full flex flex-col">
 
@@ -220,9 +245,9 @@ export default function AboutPage() {
                     {/* Visual card */}
                     <div className="grid grid-cols-2 gap-4">
                         {[
-                            { value: "2024", label: "Founded" },
-                            { value: "4", label: "Sport Categories" },
-                            { value: "500+", label: "Products" },
+                            { value: "2026", label: "Founded" },
+                            { value: statsData.sportCategories, label: "Sport Categories" },
+                            { value: statsData.productsAvailable, label: "Products" },
                             { value: "COD", label: "Payment" },
                         ].map(({ value, label }) => (
                             <div

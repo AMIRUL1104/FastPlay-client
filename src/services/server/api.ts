@@ -7,6 +7,13 @@ import {
   PaginatedResponse,
   Product,
 } from "@/src/types/product.type";
+import type {
+  AdminDashboardStats,
+  DashboardResponse,
+  Stats,
+  UserDashboardStats,
+} from "@/src/types/dashboard.type";
+import { ChatMessage } from "@/src/types/ai.type";
 
 export interface GetProductsParams {
   search?: string;
@@ -103,12 +110,6 @@ export const getOrderById = async (orderId: string) => {
 };
 
 // ---------------- Dashboard ----------------
-import type {
-  AdminDashboardStats,
-  DashboardResponse,
-  UserDashboardStats,
-} from "@/src/types/dashboard.type";
-import { ChatMessage } from "@/src/types/ai.type";
 
 export const getAdminDashboard =
   async (): Promise<AdminDashboardStats | null> => {
@@ -169,5 +170,11 @@ export const getConversation = async (): Promise<ChatMessage[] | null> => {
     "/api/ai/conversation",
   );
 
+  return result?.data ?? null;
+};
+
+// stats
+export const getStats = async (): Promise<Stats | null> => {
+  const result = await serverFetch<ApiResponse<Stats>>("/api/stats");
   return result?.data ?? null;
 };
