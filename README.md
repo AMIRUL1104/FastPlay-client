@@ -4,7 +4,7 @@ Welcome to FastPlay, a modern e-commerce platform built with Next.js, designed t
 
 ## Live Demo
 
-[//]: # "https://fastplay-go.vercel.app"
+https://fastplay-go.vercel.app
 
 ## Screenshots
 
@@ -118,7 +118,7 @@ Welcome to FastPlay, a modern e-commerce platform built with Next.js, designed t
 
 ### Image Upload
 
-- (Placeholder for image upload library/service)
+- **Service**: ImgBB (for cloud storage)
 
 ### Deployment
 
@@ -126,7 +126,7 @@ Welcome to FastPlay, a modern e-commerce platform built with Next.js, designed t
 
 ### AI
 
-- **API/Service**: (Placeholder for AI model/service used)
+- **API/Service**: Google Gemini AI
 
 ### Other Libraries
 
@@ -569,12 +569,13 @@ Ensure the following environment variables are configured in your deployment env
 
 We welcome contributions to FastPlay! If you'd like to contribute, please follow these steps:
 
-1.  Fork the repository.
-2.  Create a new branch (`git checkout -b feature/your-feature-name`).
-3.  Make your changes.
-4.  Commit your changes (`git commit -m 'feat: Add new feature'`).
-5.  Push to the branch (`git push origin feature/your-feature-name`).
-6.  Open a Pull Request.
+1.  Fork the client repository: [FastPlay-client](https://github.com/AMIRUL1104/FastPlay-client)
+2.  Fork the server repository: [FastPlay-server](https://github.com/AMIRUL1104/FastPlay-server)
+3.  Create a new branch (`git checkout -b feature/your-feature-name`).
+4.  Make your changes.
+5.  Commit your changes (`git commit -m 'feat: Add new feature'`).
+6.  Push to the appropriate branch (`git push origin feature/your-feature-name`).
+7.  Open a Pull Request.
 
 Please ensure your code adheres to the project's coding standards and includes appropriate tests.
 
@@ -584,6 +585,7 @@ This project is licensed under the MIT License. See the `LICENSE` file for more 
 
 ## Author
 
-**FastPlay Team**
+**AMIRUL ISLAM**
 
-Based on the `package.json` file, the project `name` is `fastplay` and `version` is `0.1.0`. No specific author information was available in `package.json`.
+- [Client Repository](https://github.com/AMIRUL1104/FastPlay-client)
+- [Server Repository](https://github.com/AMIRUL1104/FastPlay-server)
